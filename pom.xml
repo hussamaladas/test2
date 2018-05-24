@@ -9,9 +9,9 @@
 
 
 	<modules>
-		<module>../app-projekt</module>
-		<module>../app-projekt2</module>
-		<module>../openshift-jee-sample</module>
+		<module>app-projekt</module>
+		<module>app-projekt2</module>
+		<module>openshift-jee-sample</module>
 	</modules>
 
 	<properties>
