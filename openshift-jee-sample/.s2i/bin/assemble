@@ -17,16 +17,15 @@ function restore_saved_artifacts() {
 
 # Source code provided to STI will be bind-mounted at /tmp/src
 # and then copied into /opt/wildfly/source for building.
-#local_source_dir=/opt/wildfly/source
-local_source_dir=/opt/app-root/src
-#mkdir -p $local_source_dir
+local_source_dir=/opt/wildfly/source
+mkdir -p $local_source_dir
 
 # Resulting WAR files will be deployed to /wildfly/standalone/deployments
 deploy_dir=/wildfly/standalone/deployments
 mkdir -p $deploy_dir
 
 # Copy the source from the bind mount in preparation for compilation
-#cp -ad /tmp/src/* $local_source_dir
+cp -ad /tmp/src/* $local_source_dir
 
 # If a pom.xml is present, this is a normal build scenario 
 # so run maven.
@@ -47,11 +46,9 @@ if [ -f "$local_source_dir/pom.xml" ]; then
   echo "Copying built war files into $deploy_dir for later deployment..."
   if [ -d $local_source_dir/*/target ]; then
     cp $local_source_dir/*/target/*.war $deploy_dir >& /dev/null
-	cp $local_source_dir/*/target/*.jar $deploy_dir >& /dev/null
   fi
   if [ -d $local_source_dir/deployments ]; then
     cp $local_source_dir/deployments/*.war $deploy_dir >& /dev/null
-	cp $local_source_dir/deployments/*.jar $deploy_dir >& /dev/null
   fi
   
   if [ -d $local_source_dir/cfg ]; then
@@ -70,13 +67,11 @@ if [ -f "$local_source_dir/pom.xml" ]; then
   popd &> /dev/null
 else
   echo "Copying binaries in source directory into $deploy_dir for later deployment..."
-  if [ -d $local_source_dir/target ]; then
+  if [ -d $local_source_dir/*/target ]; then
     cp $local_source_dir/*/target/*.war $deploy_dir >& /dev/null
-	cp $local_source_dir/*/target/*.jar $deploy_dir >& /dev/null
   fi
   if [ -d $local_source_dir/deployments ]; then
     cp $local_source_dir/deployments/*.war $deploy_dir >& /dev/null
-	cp $local_source_dir/deployments/*.jar $deploy_dir >& /dev/null
   fi
   if [ -d $local_source_dir/cfg ]; then
     echo "Copying config files from project..."
