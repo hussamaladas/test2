@@ -19,7 +19,7 @@ function restore_saved_artifacts() {
 # and then copied into /opt/wildfly/source for building.
 #local_source_dir=/opt/wildfly/source
 local_source_dir=/opt/app-root/src
-mkdir -p $local_source_dir
+#mkdir -p $local_source_dir
 
 # Resulting WAR files will be deployed to /wildfly/standalone/deployments
 deploy_dir=/wildfly/standalone/deployments
